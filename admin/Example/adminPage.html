@@ -1,0 +1,96 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .superiorContent {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid black;
+            background-color: #ddd;
+        }
+
+        .superiorContent ul {
+            display: flex;
+            list-style-type: none;
+            gap: 10px;
+        }
+
+        .contenidoInferior {
+            display: flex;
+            flex: 1;
+        }
+
+        .leftContent {
+            width: 20%;
+            background-color: #444;
+            color: white;
+            padding: 20px;
+        }
+
+        .rightContent {
+            width: 80%;
+            padding: 20px;
+        }
+
+        .menu li {
+            list-style-type: none;
+            margin-bottom: 10px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="superiorContent">
+            <ul>
+                <li><a href="#"><img src="menu.png" alt="menú desplegable" width="30"></a></li>
+                <li><a href="#"><img src="logo.png" alt="logo" width="30"></a></li>
+                <li><a href="#"><img src="profile.png" alt="perfil" width="30"></a></li>
+            </ul>
+        </div>
+
+        <div class="contenidoInferior">
+            <div class="leftContent">
+                <ul class="menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Administrar Correos</a></li>
+                    <li><a href="#">Control de Estado</a></li>
+                    <li><a href="#">Revisión de Correos</a></li>
+                    <li><a href="#">Enviar Correo</a></li>
+                </ul>
+            </div>
+
+            <div class="rightContent">
+                <!-- Aquí irá el contenido que se cargue -->
+                <p>Bienvenido al panel de administración.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
