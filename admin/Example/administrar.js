@@ -29,3 +29,10 @@ for (let i = 0; i < correosData.correos.length; i++) {
   correosHTML += "</tr>";
 }
 correos.innerHTML = correosHTML;
+
+
+//aqui estoy agregando para la vista del usuario donde se podra ver todos los usuarios y que estes se editen
+
+function vertabausuarios(){
+  
+}

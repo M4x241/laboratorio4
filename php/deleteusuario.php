@@ -1,20 +1,28 @@
-<?php session_start();
+<?php 
+session_start();
 include("conexion.php");
-require("verificarsesion.php");
-require("verificarnivel.php");
+
+require("verificarsession.php");
+require("verificarrol.php");
 require("verificarestado.php");
 
-$id=$_GET['id'];
+$id = $_GET['id'] ?? null;
 
+if ($id === null) {
+    echo "ID no especificado";
+    exit;
+}
 
-$stmt=$con->prepare('DELETE FROM usuarios WHERE id=?');
-$stmt->bind_param("i",$id);
-// Ejecutar la consulta
+// Usa la variable correcta de conexión:
+$stmt = $conexion->prepare('DELETE FROM usuarios WHERE id=?');
+$stmt->bind_param("i", $id);
+
 if ($stmt->execute()) {
-    echo "usuario Eliminado";
+    echo "Usuario eliminado";
 } else {
     echo "Error: " . $stmt->error;
 }
 
-$con->close();
+$stmt->close();
+$conexion->close();
 ?>

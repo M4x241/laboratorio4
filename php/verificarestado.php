@@ -1,8 +1,10 @@
 <?php
-session_start();
-if ($_SESSION["estado"] !== "activo") {
-    echo "Usted esta suspendido";
-  
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION["estado"]) || $_SESSION["estado"] !== "activo") {
+    echo "Usted está suspendido";
     die();
 }
 ?>
