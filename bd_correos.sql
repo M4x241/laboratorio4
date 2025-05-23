@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-05-2025 a las 22:39:56
+-- Tiempo de generación: 21-05-2025 a las 23:09:10
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -45,8 +45,9 @@ CREATE TABLE `correos` (
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
+  `nombre` varchar(250) NOT NULL,
   `correo` varchar(100) NOT NULL,
-  `contraseña` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `rol` enum('admin','usuario') NOT NULL,
   `estado` enum('activo','suspendido') DEFAULT 'activo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
