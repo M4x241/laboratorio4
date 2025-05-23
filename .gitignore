@@ -1,0 +1,8 @@
+# Ignorar la carpeta "nombre_de_la_carpeta"
+.vscode/
+
+# Ignorar todos los archivos .log
+*.log
+
+# Ignorar archivos temporales de sistema
+*.tmp
