@@ -30,6 +30,13 @@
     .content {
       padding: 20px;
     }
+
+    .sidebar a.active {
+  background-color: #c1d8f0;
+  font-weight: bold;
+  border-left: 4px solid #1a73e8;
+}
+
   </style>
 </head>
 <body>
@@ -38,7 +45,8 @@
   <nav class="navbar navbar-light bg-light border-bottom">
     <div class="container-fluid">
       <button class="btn" onclick="toggleMenu()">☰</button>
-      <span class="navbar-brand mb-0 h1">Correo Web</span>
+      <img src="img\logo.png" alt="logo" width="30" class="d-inline-block align-text-top">
+      <span class="navbar-brand mb-0 h1 mx-auto ms-3">IntraMail</span>
       <div>
         <img src="profile.png" alt="Perfil" width="30" class="rounded-circle">
       </div>
@@ -51,10 +59,10 @@
 
       <!-- Menú lateral -->
       <div id="sidebar" class="col-md-2 sidebar">
-        <a href="#" onclick="mostrar('administrar')">Administrar Cuentas</a>
-        <a href="#" onclick="mostrar('control')">Control de Estado</a>
-        <a href="#" onclick="mostrar('revisar')">Revisión de Correos</a>
-        <a href="#" onclick="mostrar('enviar')">Enviar Correo</a>
+        <a href="#" onclick="mostrar('administrar')"><img src="img\admC.png" alt="logo" width="30"> Administrar Cuentas</a>
+        <a href="#" onclick="mostrar('control')"><img src="img\icon_2.png" alt="logo"width="30">  Control de Estado</a>
+        <a href="#" onclick="mostrar('revisar')"><img src="img\icon_3.png" alt="logo"width="30">  Revisión de Correos</a>
+        <a href="#" onclick="mostrar('enviar')"><img src="img\icon_4.png" alt="logo"width="30">  Enviar Correo</a>
       </div>
 
       <!-- Panel derecho -->
@@ -72,9 +80,19 @@
       sidebar.classList.toggle('d-none');
     }
     function mostrar(pagina) {
-        const contenido = document.getElementById('panel');
+    const contenido = document.getElementById('panel');
 
-        fetch(pagina + '.html')
+    // Remover la clase activa de todos los enlaces
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        link.classList.remove('active');
+    });
+
+    // Añadir clase activa al enlace clicado
+    const linkActivo = Array.from(document.querySelectorAll('.sidebar a'))
+        .find(a => a.textContent.toLowerCase().includes(pagina));
+    if (linkActivo) linkActivo.classList.add('active');
+
+    fetch(pagina + '.html')
         .then(res => {
             if (!res.ok) throw new Error("Página no encontrada");
             return res.text();
@@ -82,26 +100,24 @@
         .then(data => {
             contenido.innerHTML = data;
 
-             if (pagina === "administrar") {
-            // 🔁 Eliminar el script si ya existe
-            const existingScript = document.querySelector("script[src='administrar.js']");
-            if (existingScript) {
-            existingScript.remove();
-            }
+            if (pagina === "administrar") {
+                const existingScript = document.querySelector("script[src='administrar.js']");
+                if (existingScript) existingScript.remove();
 
-        // ✅ Cargar de nuevo
-        const script = document.createElement("script");
-        script.src = "administrar.js";
-        script.onload = () => console.log("administrar.js recargado");
-        script.onerror = () => console.error("Error al recargar el script");
-        document.body.appendChild(script);
-      }
-    })
-    .catch(error => {
-      contenido.innerHTML = '<div class="alert alert-danger">No se pudo cargar la sección: ' + pagina + '</div>';
-      console.error(error);
-    });
+                const script = document.createElement("script");
+                script.src = "administrar.js";
+                script.onload = () => console.log("administrar.js recargado");
+                script.onerror = () => console.error("Error al recargar el script");
+                document.body.appendChild(script);
+            }
+        })
+        .catch(error => {
+            contenido.innerHTML = '<div class="alert alert-danger">No se pudo cargar la sección: ' + pagina + '</div>';
+            console.error(error);
+        });
 }
+
+
 
 
 
