@@ -1,0 +1,46 @@
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<div class=" mt-5 modalWeb">
+  <div id="mensaje" class="card shadow-sm"></div>
+</div>
+<style>
+  .modalWeb {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+</style>
+
+<script>
+  let correo = document.getElementById("mensaje");
+  let correoData = {
+    correo: "1@gmail.com",
+    asunto: {
+      titulo: "Hola",
+      texto: "Como estas",
+    },
+    texto: "Como estas, Bienvenido a la clase de programacion",
+    opciones: "Eliminar",
+    fecha: "2023-10-01",
+  };
+  correo.innerHTML = `
+                        <div class="card-header bg-primary text-white">
+                                <h1 class="h5">${correoData.asunto.titulo}</h1>
+                        </div>
+                        <div class="card-body">
+                                <p class="text-muted"><strong>De:</strong> ${correoData.correo}</p>
+                                <p>${correoData.asunto.texto}</p>
+                                <p>${correoData.texto}</p>
+                        </div>
+                        <div class="card-footer text-end">
+                                <small class="text-muted">${correoData.fecha}</small>
+                        </div>
+                `;
+</script>

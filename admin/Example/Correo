@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Leer Correo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container my-5">
+    <div class="card shadow-sm">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Asunto del correo: Reunión del proyecto</h5>
+        <small class="text-muted">24 mayo 2025, 10:00 AM</small>
+      </div>
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">De: <strong>jefe@empresa.com</strong></h6>
+        <h6 class="card-subtitle mb-4 text-muted">Para: <strong>usuario@correo.com</strong></h6>
+        
+        <p class="card-text">
+          Hola, <br><br>
+          Te escribo para recordarte que hoy tenemos la reunión sobre el avance del proyecto a las 3 PM en la sala 2B.
+          Por favor, lleva el informe actualizado y los indicadores del último sprint. <br><br>
+          ¡Gracias! <br>
+          Atentamente, <br>
+          El Jefe.
+        </p>
+
+        <div class="mt-4">
+          <button class="btn btn-primary me-2">Responder</button>
+          <button class="btn btn-secondary me-2">Reenviar</button>
+          <button class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
