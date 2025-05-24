@@ -138,3 +138,49 @@ function cerrarsession() {
       }, 1000);
     });
 }
+
+
+//---------------------------------------------------------------------------------------------------------------------
+
+// a partir de aqui es el scrip para los correos o mensajes
+
+function listarcorreos() {
+  const contenedor = document.getElementById("panel");
+
+  fetch("../../php/mensaje/read.php")
+    .then((response) => response.text())
+    .then((data) => {
+      objeto = JSON.parse(data);
+      contenedor.innerHTML = renderizarCorreos(objeto);
+    });
+}
+
+
+function renderizarCorreos(objeto) {
+  let lista = objeto.datos;
+  let html = `<h4>correos</h4>
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+      
+        <th>destinatario</th>
+        <th>asunto</th>
+        <th>emisor</th>
+        <th>Estado</th>
+        <th>operaciones</th>
+      </tr>
+    </thead>
+    <tbody>`;
+
+  for (var i = 0; i < lista.length; i++) {
+    html += `<tr>
+      <td>${lista[i].destinatario}</td>
+      <td>${lista[i].asunto}</td>
+      <td>${lista[i].emisor}</td>
+      <td>${lista[i].estado}</td>
+        <td><a href="javascript:cambiarestado('${lista[i].id}')">ver</a> `;
+  }
+
+  html += `</tbody></table>`;
+  return html;
+}
