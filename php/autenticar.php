@@ -5,7 +5,7 @@ include("conexion.php");
 $correo = $_POST['correo'];
 $password = sha1($_POST['password']);
 
-$stmt = $conexion->prepare('SELECT correo, nombre, rol, estado FROM usuarios WHERE correo=? AND password=?');
+$stmt = $conexion->prepare('SELECT id,correo, nombre, rol, estado FROM usuarios WHERE correo=? AND password=?');
 $stmt->bind_param("ss", $correo, $password);
 $stmt->execute();
 
