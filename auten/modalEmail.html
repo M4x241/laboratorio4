@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nuevo Mensaje</title>
+  <style>
+
+    .modal {
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f3f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .ventana-mensaje {
+      width: 500px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .barra-superior {
+      background-color: #f1f3f4;
+      padding: 10px 15px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .barra-superior span {
+      font-size: 14px;
+    }
+
+    .iconos-ventana {
+      display: flex;
+      gap: 10px;
+    }
+
+    .contenido-mensaje {
+      padding: 10px 15px;
+    }
+
+    .campo {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .campo input {
+      flex: 1;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      padding: 5px;
+      outline: none;
+    }
+
+    .asunto input {
+      width: 100%;
+    }
+
+    .cuerpo {
+      height: 150px;
+      border: none;
+      width: 100%;
+      resize: none;
+      outline: none;
+    }
+
+    .barra-inferior {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+      border-top: 1px solid #ddd;
+    }
+
+    .btn-enviar {
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .btn-enviar:hover {
+        background-color: #4d90fe; 
+    }
+    .btn-cerrar:hover{
+        background-color: red;
+        color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="myModal" class="modal"></div>
+  <div class="ventana-mensaje">
+    <div class="barra-superior">
+      <span>Mensaje nuevo</span>
+      <div class="iconos-ventana">
+        <button class="btn-cerrar">✕</button>
+      </div>
+    </div>
+
+    <div class="contenido-mensaje">
+      <div class="campo">
+        <input type="text" placeholder="Para" id="para">
+      </div>
+      <div class="campo asunto">
+        <input type="text" placeholder="Asunto" id="asunto">
+      </div>
+      <textarea class="cuerpo" placeholder="" id="contenido"></textarea>
+    </div>
+
+    <div class="barra-inferior">
+      <button class="btn-enviar">Enviar</button>
+    </div>
+  </div>
+  </div>
+</body>
+</html>
