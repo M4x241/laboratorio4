@@ -4,18 +4,28 @@ include "conexion.php";
 
 require "verificarsession.php";
 require "verificarestado.php";
+$input = json_decode(file_get_contents("php://input"), true);
 
-$para = $_POST['para'] ?? null;
-$asunto = $_POST['asunto'] ?? null;
-$mensaje = $_POST['mensaje'] ?? null;
-$estado = $_POST['estado'] ?? null;
+// Ahora extrae los datos como si fueran un array
+$para = $input['para'] ?? null;
+$asunto = $input['asunto'] ?? null;
+$mensaje = $input['mensaje'] ?? null;
+$estado = $input['estado'] ?? null;
 
 if (!$para || !$asunto || !$mensaje || !$estado) {
-    echo json_encode(["success" => false, "error" => "Todos los campos son obligatorios"]);
+    echo json_encode([
+        "success" => false, 
+        "error" => "Todos los campos son obligatorios", 
+        "data" => [
+            "para" => $para,
+            "asunto" => $asunto,
+            "mensaje" => $mensaje,
+            "estado" => $estado
+        ]
+    ]);
     exit;
 }
 
-// Obtener el ID del remitente desde la sesión
 $remitente_id = $_SESSION['id'] ?? null;
 
 if (!$remitente_id) {
@@ -23,7 +33,7 @@ if (!$remitente_id) {
     exit;
 }
 
-$stmt = $conexion->prepare('SELECT id FROM correos WHERE correo = ?');
+$stmt = $conexion->prepare('SELECT id FROM usuarios WHERE correo = ?');
 $stmt->bind_param("s", $para);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -39,6 +49,7 @@ if (!$recipient) {
 $para_id = $recipient['id'];
 $stmt->close();
 
+// Insertar el correo en la tabla de correos
 $stmt = $conexion->prepare('INSERT INTO correos (remitente_id, destinatario_id, asunto, mensaje, estado) VALUES (?, ?, ?, ?, ?)');
 $stmt->bind_param("iisss", $remitente_id, $para_id, $asunto, $mensaje, $estado);
 

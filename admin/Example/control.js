@@ -21,11 +21,10 @@ let correosData = {
 let correosHTML = "";
 for (let i = 0; i < correosData.correos.length; i++) {
   correosHTML += "<tr>";
-  correosHTML += "<td>" + correosData.correos[i].correo + "</td>";
-  correosHTML += "<td>" + correosData.correos[i].titulo + "</td>";
-  correosHTML += "<td>" + correosData.correos[i].asunto + "</td>";
+  correosHTML += "<td>" + correosData.correos[i].cuenta + "</td>";
+  correosHTML += "<td>" + correosData.correos[i].estado + "</td>";
   correosHTML += "<td><button class='btn btn-primary btn-sm me-2'>Ver</button><button class='btn btn-danger btn-sm'>Borrar</button></td>";
-  correosHTML += "<td>" + correosData.correos[i].fecha + "</td>";
+  correosHTML += "<td>" + correosData.correos[i].cambiarEstado + "</td>";
   correosHTML += "</tr>";
 }
 correos.innerHTML = correosHTML;

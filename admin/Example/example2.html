@@ -73,7 +73,7 @@
             ><img src="img\admC.png" alt="logo" width="30" /> Administrar
             Cuentas</a
           >
-          <a href="#" onclick="mostrar('control')"
+          <a href="#" onclick="mostrar('cont')"
             ><img src="img\icon_2.png" alt="logo" width="30" /> Control de
             Estado</a
           >
@@ -91,6 +91,12 @@
           <h4>Bienvenido</h4>
           <p>Selecciona una opción del menú.</p>
         </div>
+      </div>
+    </div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="contenido-modal"></div>
       </div>
     </div>
 
@@ -120,7 +126,11 @@
           })
           .then((data) => {
             contenido.innerHTML = data;
-            administrarUsuarios();
+            if (pagina === "administrar") administrarUsuarios();
+            if (pagina === "cont") controlarEstado();
+            if (pagina === "revisar") {
+              revisarCorreos();
+            }
           })
           .catch((error) => {
             contenido.innerHTML =
@@ -141,10 +151,9 @@
             for (let i = 0; i < correosData.length; i++) {
               correosHTML += "<tr>";
               correosHTML += "<td>" + correosData[i].correo + "</td>";
+              correosHTML += "<td>" + correosData[i].nombre + "</td>";
               correosHTML +=
-                "<td>" + correosData[i].nombre + "</td>";
-              correosHTML +=
-                "<td><button class='btn btn-primary btn-sm me-2'>Ver</button><button class='btn btn-danger btn-sm'>Borrar</button></td>";
+                "<td><button class='btn btn-primary btn-sm me-2'>Actualizar</button><button class='btn btn-danger btn-sm'>Borrar</button></td>";
               correosHTML += "</tr>";
             }
             correosHTML += "<br>";
@@ -156,7 +165,108 @@
             console.error("Error:", error);
           });
       }
+      function controlarEstado() {
+        const correos = document.getElementById("correos");
+
+        fetch("../../php/readusuario.php")
+          .then((response) => response.json())
+          .then((data) => {
+            const cuentas = data.datos;
+            let html = "";
+
+            for (let i = 0; i < cuentas.length; i++) {
+              html += "<tr>";
+              html += `<td>${cuentas[i].correo}</td>`;
+              html += `<td>${cuentas[i].estado}</td>`;
+              html += `
+          <td>
+            <button class="btn btn-sm btn-warning" onclick="cambiarEstado(${cuentas[i].id}, '${cuentas[i].estado}')">
+              Cambiar
+            </button>
+          </td>`;
+              html += "</tr>";
+            }
+
+            correos.innerHTML = html;
+          })
+          .catch((error) => {
+            console.error("Error al obtener datos:", error);
+            correos.innerHTML = `<tr><td colspan="3" class="text-danger">Error al cargar datos</td></tr>`;
+          });
+      }
+
+      function cambiarEstado(id, estadoActual) {
+        const nuevoEstado = estadoActual === "activo" ? "inactivo" : "activo";
+
+        fetch("../../php/cambiarestado.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: id, nuevo_estado: nuevoEstado }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            alert(data.message);
+            controlarEstado(); // Recarga la tabla para mostrar el nuevo estado
+          })
+          .catch((error) => {
+            console.error("Error al cambiar estado:", error);
+          });
+      }
+      function revisarCorreos() {
+        const correos = document.getElementById("correos");
+        fetch("../../php/readusuario.php")
+          .then((response) => response.json())
+          .then((data) => {
+            const cuentas = data.datos;
+            let html = "";
+
+            for (let i = 0; i < cuentas.length; i++) {
+              html += `<tr style="cursor: pointer;" onclick="verCorreos(${cuentas[i].id})">`;
+              html += `<td>${cuentas[i].correo}</td>`;
+              html += `<td>${cuentas[i].nombre}</td>`;
+              html += "</tr>";
+            }
+
+            correos.innerHTML = html;
+          })
+          .catch((error) => {
+            console.error("Error al obtener datos:", error);
+            correos.innerHTML = `<tr><td colspan="3" class="text-danger">Error al cargar datos</td></tr>`;
+          });
+      }
+      function verCorreos(id) {
+        fetch("../../php/allcorreo.php?id=" + id)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            const correos = data;
+            let html = `
+            <button class="btn btn-primary" onclick="mostrar('revisar')">Volver</button>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Asunto</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+            `;
+
+            for (let i = 0; i < correos.length; i++) {
+              html += "<tr>";
+              html += `<td>${correos[i].asunto}</td>`;
+              html += `<td>${correos[i].fecha}</td>`;
+              html += "</tr>";
+            }
+
+            document.getElementById("panel").innerHTML = html;
+          })
+          .catch((error) => {
+            console.error("Error al obtener correos:", error);
+          });
+      }
     </script>
-    <script src="administrar.js"></script>
+    <!-- <script src="administrar.js"></script> -->
+    <script src="../../js/user.js"></script>
   </body>
 </html>
